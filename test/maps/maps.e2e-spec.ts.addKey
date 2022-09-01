@@ -1,0 +1,34 @@
+import { APP_URL, ADMIN_EMAIL, ADMIN_PASSWORD } from '../utils/constants';
+import * as request from 'supertest';
+
+describe('Maps (e2e)', () => {
+  const app = APP_URL;
+  let apiToken;
+
+  beforeAll(async () => {
+    await request(app)
+      .post('/api/v1/auth/admin/email/login')
+      .send({ email: ADMIN_EMAIL, password: ADMIN_PASSWORD })
+      .then(({ body }) => {
+        apiToken = body.token;
+      });
+  });
+
+  it('Autocomplete places: /api/v1/maps/placeAutocomplete/:address (GET)', () => {
+    return request(app)
+      .get(`/api/v1/maps/placeAutocomplete/los%20jazmines%20258%20surco`)
+      .auth(apiToken, {
+        type: 'bearer',
+      })
+      .expect(200);
+  });
+
+  it('Search near stores: /api/v1/maps/nearStores/:placeId (GET)', () => {
+    return request(app)
+      .get('/api/v1/maps/nearStores/ChIJhTT5_ne4BZERVSfzXm3purU')
+      .auth(apiToken, {
+        type: 'bearer',
+      })
+      .expect(200);
+  });
+});
