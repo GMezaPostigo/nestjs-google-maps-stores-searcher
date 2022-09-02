@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, CacheInterceptor, CacheModule } from '@nestjs/common';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import databaseConfig from './config/database.config';
@@ -11,6 +11,7 @@ import { TypeOrmConfigService } from './database/typeorm-config.service';
 import { HomeModule } from './modules/home/home.module';
 import { DataSource } from 'typeorm';
 import { MapsModule } from './modules/maps/maps.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -18,6 +19,9 @@ import { MapsModule } from './modules/maps/maps.module';
       isGlobal: true,
       load: [databaseConfig, authConfig, googleConfig, appConfig],
       envFilePath: ['.env'],
+    }),
+    CacheModule.register({
+      isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
@@ -30,6 +34,12 @@ import { MapsModule } from './modules/maps/maps.module';
     AuthModule,
     HomeModule,
     MapsModule,
+  ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
   ],
 })
 export class AppModule {}
