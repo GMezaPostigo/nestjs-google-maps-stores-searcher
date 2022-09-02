@@ -10,6 +10,7 @@ NestJS REST API with google maps API integration for autocomplete addresses and 
 - [x] Migrations.
 - [x] Seeding.
 - [x] Config Service ([@nestjs/config](https://www.npmjs.com/package/@nestjs/config)).
+- [x] Caching.
 - [x] Login.
 - [x] Users and Roles.
 - [x] Swagger.
