@@ -21,16 +21,21 @@ NestJS REST API with google maps API integration for autocomplete addresses and 
 ## Start development in localhost
 
 ```bash
+git clone --depth 1 https://github.com/GMezaPostigo/nestjs-google-maps-stores-searcher.git nest-app
+cd nest-app
 cp env-example .env
 ```
-
+Generate your google maps api key
 Change `DATABASE_HOST=postgres` to `DATABASE_HOST=localhost`
+Change `GOOGLE_API_KEY=` to `GOOGLE_API_KEY={YOUR_GOOGLE_API_KEY}`
 
 Run DB container:
 
 ```bash
 docker-compose up -d postgres
 ```
+
+Start project:
 
 ```bash
 npm install
