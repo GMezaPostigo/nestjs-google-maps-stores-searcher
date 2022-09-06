@@ -25,8 +25,11 @@ git clone --depth 1 https://github.com/GMezaPostigo/nestjs-google-maps-stores-se
 cd nest-app
 cp env-example .env
 ```
+
 Generate your google maps api key
+
 Change `DATABASE_HOST=postgres` to `DATABASE_HOST=localhost`
+
 Change `GOOGLE_API_KEY=` to `GOOGLE_API_KEY={YOUR_GOOGLE_API_KEY}`
 
 Run DB container:
